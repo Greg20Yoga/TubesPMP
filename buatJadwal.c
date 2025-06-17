@@ -205,10 +205,9 @@ void buatJadwal() {
     // Buat linked list hari
     buatHari();
 
-    // Proses dokter ke array sesuai preferensi shift
-    //==============================================================================================================================================
-    // Untuk preferensi 0,1,2,5 dahulu, agar nanti yang memiliki preferensi dua hari dimasukkan ke array preferensi 
-    // dengan jumlah maksimal shift dokter per minggu terdikit antara dua hari tersebut
+    // Proses memasukkan data dokter ke array sesuai preferensi shift
+    //========================================================================================================================================================
+    // Untuk dokter yang memiliki preferensi satu hari (0,1,2) dahulu, agar nanti bisa dilakukan pemerataan antar shift dengan preferensi yang lebih fleksibel
     dokter *current_dokter = head_dokter;
     while (current_dokter!=NULL) {
         // Jika preferensi pagi
@@ -238,9 +237,9 @@ void buatJadwal() {
     // Untuk preferensi 3,4,5
     current_dokter = head_dokter;
     while (current_dokter != NULL) {
-        // Hitung maksmial shift per minggu semua dokter tiap preferensi
+        // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
         hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam);
-        // Memasukkan dokter ke array preferensi shift dengan maksimal shift per minggu terendah
+        // Memasukkan data dokter ke array preferensi shift dengan jumlah maksimal shift per minggu terendah
         // Jika preferensi pagi dan siang
         if (current_dokter->preferensi==3) {
             if (shiftPagi<=shiftSiang) {
@@ -277,31 +276,32 @@ void buatJadwal() {
         current_dokter=current_dokter->next;
     }
 
-    // Memasukkan dokter dari array untuk dokter tanpa preferensi
+    // Untuk yang preferensi 6 (tidak memiliki preferensi)
     // Prosesnya sama dengan preoses untuk preferensi 3,4,5
-    while (counter_bebas>0) {
+    current_dokter=head_dokter;
+    while (current_dokter!=NULL) {
         hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam);
-        if ((shiftPagi<shiftSiang || shiftPagi==shiftSiang) && (shiftPagi<shiftMalam || shiftPagi==shiftMalam)) {
-            counter_bebas--;
-            pagi[counter_pagi]=bebas[counter_bebas];
-            counter_pagi++;
+        if (current_dokter->preferensi>5 || current_dokter->preferensi <0) {
+            if ((shiftPagi<shiftSiang || shiftPagi==shiftSiang) && (shiftPagi<shiftMalam || shiftPagi==shiftMalam)) {
+                pagi[counter_pagi]=current_dokter;
+                counter_pagi++;
+            }
+            else if (shiftSiang<shiftPagi  && (shiftSiang<shiftMalam || shiftSiang==shiftMalam)) {
+                siang[counter_siang]=current_dokter;
+                counter_siang++;
+            }
+            else if (shiftMalam<shiftPagi  && shiftMalam<shiftSiang) {
+                malam[counter_malam]=current_dokter;
+                counter_malam++;
+            }
         }
-        else if (shiftSiang<shiftPagi  && (shiftSiang<shiftMalam || shiftSiang==shiftMalam)) {
-            counter_bebas--;
-            siang[counter_siang]=bebas[counter_bebas];
-            counter_siang++;
-        }
-        else if (shiftMalam<shiftPagi  && shiftMalam<shiftSiang) {
-            counter_bebas--;
-            malam[counter_malam]=bebas[counter_bebas];
-            counter_malam++;
-        }
+        current_dokter=current_dokter->next;
     }
     
-    hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam);
+    hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam); // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
 
-    // Melakukan pengecekan kembali per shift apakah total shift dari tiap dokter per preferensi cukup untuk setidaknya satu dokter per shift
-    // Jika tidak cukup atau total shift dokter preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
+    // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift
+    // Jika tidak cukup atau jumlah masksimal shift semua dokter dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
     if (shiftPagi<7) {
         while (shiftPagi<7 && (shiftSiang>=13 ||shiftMalam>=13)) {
             distribusiArray (pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, &counter_pagi, &counter_siang, &counter_malam);
