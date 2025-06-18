@@ -1,0 +1,20 @@
+// jadwal harian
+void tampilkanJadwalHarian(hari *day) {
+    printf("\n=== Jadwal Harian Tanggal %d ===\n", day->tanggal);
+    
+    printf("Shift Pagi:\n");
+    for(int i = 0; i < 5 && day->pagi[i] != NULL; i++) {
+        printf("- %s\n", day->pagi[i]->nama);
+    }
+    
+    printf("\nShift Siang:\n");
+    for(int i = 0; i < 5 && day->siang[i] != NULL; i++) {
+        printf("- %s\n", day->siang[i]->nama);
+    }
+    
+    printf("\nShift Malam:\n");
+    for(int i = 0; i < 5 && day->malam[i] != NULL; i++) {
+        printf("- %s\n", day->malam[i]->nama);
+    }
+}
+
