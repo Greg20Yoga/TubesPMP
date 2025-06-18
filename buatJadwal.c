@@ -190,12 +190,10 @@ void buatJadwal() {
     dokter *pagi[100] = {0};
     dokter *siang[100] = {0};
     dokter *malam[100] = {0};
-    dokter *bebas[100] = {0};
     // counter untuk menghitung banyak dokter di masing-masing array diatas
     int counter_pagi = 0;
     int counter_siang = 0;
     int counter_malam = 0;
-    int counter_bebas = 0;
     // counter untuk menghitung maksimal shift per minggu dari semua dokter tiap preferensi
     int shiftPagi, shiftSiang, shiftMalam;
 
@@ -224,12 +222,6 @@ void buatJadwal() {
         else if (current_dokter->preferensi==2) {
             malam[counter_malam]=current_dokter;
             counter_malam++;
-        }
-
-        // Jika preferensi tidak ada
-        else if (current_dokter->preferensi==6){
-            bebas[counter_bebas]=current_dokter;
-            counter_bebas++;
         }
         current_dokter=current_dokter->next;
     }
@@ -277,7 +269,7 @@ void buatJadwal() {
     }
 
     // Untuk yang preferensi 6 (tidak memiliki preferensi)
-    // Prosesnya sama dengan preoses untuk preferensi 3,4,5
+    // Prosesnya sama dengan proses untuk preferensi 3,4,5
     current_dokter=head_dokter;
     while (current_dokter!=NULL) {
         hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam);
@@ -301,7 +293,7 @@ void buatJadwal() {
     hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam); // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
 
     // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift
-    // Jika tidak cukup atau jumlah masksimal shift semua dokter dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
+    // Jika tidak cukup atau jumlah masksimal shift semua dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
     if (shiftPagi<7) {
         while (shiftPagi<7 && (shiftSiang>=13 ||shiftMalam>=13)) {
             distribusiArray (pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, &counter_pagi, &counter_siang, &counter_malam);
