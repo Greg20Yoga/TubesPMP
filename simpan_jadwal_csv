@@ -1,0 +1,46 @@
+// menyimpan jadwal ke file csv
+void simpanJadwalKeFile(hari *head, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if(file == NULL) {
+        printf("Gagal membuka file!\n");
+        return;
+    }
+    
+    // Header CSV
+    fprintf(file, "Tanggal,Shift,Nama Dokter,Preferensi,Total Shift\n");
+    
+    hari *current = head;
+    while(current != NULL) {
+        // Shift Pagi
+        for(int i = 0; i < 5 && current->pagi[i] != NULL; i++) {
+            fprintf(file, "%d,Pagi,%s,%d,%d\n", 
+                   current->tanggal, 
+                   current->pagi[i]->nama,
+                   current->pagi[i]->preferensi,
+                   current->pagi[i]->totalShift);
+        }
+        
+        // Shift Siang
+        for(int i = 0; i < 5 && current->siang[i] != NULL; i++) {
+            fprintf(file, "%d,Siang,%s,%d,%d\n", 
+                   current->tanggal, 
+                   current->siang[i]->nama,
+                   current->siang[i]->preferensi,
+                   current->siang[i]->totalShift);
+        }
+        
+        // Shift Malam
+        for(int i = 0; i < 5 && current->malam[i] != NULL; i++) {
+            fprintf(file, "%d,Malam,%s,%d,%d\n", 
+                   current->tanggal, 
+                   current->malam[i]->nama,
+                   current->malam[i]->preferensi,
+                   current->malam[i]->totalShift);
+        }
+        
+        current = current->next;
+    }
+    
+    fclose(file);
+    printf("Jadwal berhasil disimpan ke %s\n", filename);
+}
