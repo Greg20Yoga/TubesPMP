@@ -1,0 +1,22 @@
+// jadwal bulanan
+void tampilkanJadwalBulanan(hari *head) {
+    printf("\n=== Jadwal Bulanan ===\n");
+    hari *current = head;
+    while(current != NULL) {
+        printf("\nTanggal %d:\n", current->tanggal);
+        printf("Pagi: ");
+        for(int i = 0; i < 5 && current->pagi[i] != NULL; i++) {
+            printf("%s, ", current->pagi[i]->nama);
+        }
+        printf("\nSiang: ");
+        for(int i = 0; i < 5 && current->siang[i] != NULL; i++) {
+            printf("%s, ", current->siang[i]->nama);
+        }
+        printf("\nMalam: ");
+        for(int i = 0; i < 5 && current->malam[i] != NULL; i++) {
+            printf("%s, ", current->malam[i]->nama);
+        }
+        printf("\n");
+        current = current->next;
+    }
+}
