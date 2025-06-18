@@ -339,7 +339,7 @@ void buatJadwal() {
         // Assign shift siang
         if (counter_siang>0) {
             int maks = (shiftSiangDef/7)+1;
-            if (((shiftSiangDef/7)+1)>=sisa) maks--;
+            if (((maks*7)-shiftSiangDef)>=sisa) maks--;
             assignDokter(&counter_siang, &shiftSiang, siang, current_hari, 1, maks, sisa);
         }
         // Assign shift malam
@@ -378,7 +378,7 @@ int main () {
         if (current_hari->pagi[0] != NULL) {
             for (int i=0;i<5;i++) {
                 if (current_hari->pagi[i] != NULL) {
-                    printf("%s ", current_hari->pagi[i]->nama);
+                    printf("%s\t", current_hari->pagi[i]->nama);
                     if (!(current_hari->pagi[i]->preferensi == 0 || current_hari->pagi[i]->preferensi == 3 || current_hari->pagi[i]->preferensi == 4 || current_hari->pagi[i]->preferensi == 6)) pelanggaran++;
                 }
             }
@@ -390,7 +390,7 @@ int main () {
         if (current_hari->siang[0] != NULL) {
             for (int i=0;i<5;i++) {
                 if (current_hari->siang[i] != NULL) {
-                    printf("%s ", current_hari->siang[i]->nama);
+                    printf("%s\t", current_hari->siang[i]->nama);
                     if (!(current_hari->siang[i]->preferensi == 1 || current_hari->siang[i]->preferensi == 3 || current_hari->siang[i]->preferensi == 5 || current_hari->siang[i]->preferensi == 6)) pelanggaran++;
                 }
             }
@@ -402,7 +402,7 @@ int main () {
         if (current_hari->malam[0] != NULL) {
             for (int i=0;i<5;i++) {
                 if (current_hari->malam[i] != NULL) {
-                    printf("%s ", current_hari->malam[i]->nama);
+                    printf("%s\t", current_hari->malam[i]->nama);
                     if (!(current_hari->malam[i]->preferensi == 2 || current_hari->malam[i]->preferensi == 4 || current_hari->malam[i]->preferensi == 5 || current_hari->malam[i]->preferensi == 6)) pelanggaran++;
                 }
             }
