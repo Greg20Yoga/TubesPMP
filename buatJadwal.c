@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
 
 typedef struct dokter{
@@ -82,30 +83,30 @@ void salinArray(dokter *sumber[], dokter *target[], int counter) { // Fungsi unt
     }
 }
 
-void randomIndeks(int counter_dokter, int totalShiftPref, int indeksRandom[5]) { // Fungsi untuk menghasilkan random index angka
+void randomIndeks(int counter_dokter, int totalShiftPref, int indeksRandom[5], int maks, int sisa) { // Fungsi untuk menghasilkan random index angka
     for (int i = 0; i < 5; i++) {
         indeksRandom[i] = -1;
     }
     indeksRandom[0] = rand() % counter_dokter;
-    if (totalShiftPref >= 8 && counter_dokter >= 2) { // Jika bisa mengassign 2 dokter sekaligus 
+    if (totalShiftPref >= (1+sisa) && counter_dokter >= 2 && maks >=2) { // Jika bisa mengassign 2 dokter sekaligus 
         do {
             indeksRandom[1] = rand() % counter_dokter;
         } while (indeksRandom[1] == indeksRandom[0]);
     }
-    if (totalShiftPref >= 9 && counter_dokter >= 3) { // Jika bisa mengassign 3 dokter sekaligus
+    if (totalShiftPref >= (2+sisa) && counter_dokter >= 3 && maks >=3) { // Jika bisa mengassign 3 dokter sekaligus
         do {
             indeksRandom[2] = rand() % counter_dokter;
         } while (indeksRandom[2] == indeksRandom[0] || 
                  indeksRandom[2] == indeksRandom[1]);
     }
-    if (totalShiftPref >= 10 && counter_dokter >= 4) { // Jika bisa mengassign 4 dokter sekaligus
+    if (totalShiftPref >= (3+sisa) && counter_dokter >= 4 && maks >=4) { // Jika bisa mengassign 4 dokter sekaligus
         do {
             indeksRandom[3] = rand() % counter_dokter;
         } while (indeksRandom[3] == indeksRandom[0] || 
                  indeksRandom[3] == indeksRandom[1] || 
                  indeksRandom[3] == indeksRandom[2]);
     }
-    if (totalShiftPref >= 11 && counter_dokter >= 5) { // Jika bisa mengassign 5 (maksimal) dokter sekaligus
+    if (totalShiftPref >= (4+sisa) && counter_dokter >= 5 && maks >=5) { // Jika bisa mengassign 5 (maksimal) dokter sekaligus
         do {
             indeksRandom[4] = rand() % counter_dokter;
         } while (indeksRandom[4] == indeksRandom[0] || 
@@ -149,9 +150,9 @@ void hitungMaxShift(dokter *pagi[], dokter *siang[], dokter *malam[],
     }
 }
 
-void assignDokter(int *counter, int *totalShift, dokter *shift[], hari *current_hari, int p) {
+void assignDokter(int *counter, int *totalShift, dokter *shift[], hari *current_hari, int p, int maks, int sisa) {
     int indeksRandom[5];
-    randomIndeks(*counter, *totalShift, indeksRandom);
+    randomIndeks(*counter, *totalShift, indeksRandom, maks, sisa);
     for (int i=0;i<5;i++) {
         if (indeksRandom[i] != -1) { 
             if (p==0) {
@@ -293,7 +294,7 @@ void buatJadwal() {
     hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam); // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
 
     // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift
-    // Jika tidak cukup atau jumlah masksimal shift semua dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
+    // Jika tidak cukup atau jumlah masksimal shift semua dokter dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
     if (shiftPagi<7) {
         while (shiftPagi<7 && (shiftSiang>=13 ||shiftMalam>=13)) {
             distribusiArray (pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, &counter_pagi, &counter_siang, &counter_malam);
@@ -330,20 +331,24 @@ void buatJadwal() {
     // Proses pembuatan jadwal
     //=============================================================================================================================================
     hari *current_hari = head_hari;
+    int sisa = 7;
     while(current_hari!=NULL) {
         // Assign shift pagi
         if (counter_pagi>0) {
-            assignDokter(&counter_pagi, &shiftPagi, pagi, current_hari, 0);
+            int maks = (shiftPagiDef/7)+1;
+            assignDokter(&counter_pagi, &shiftPagi, pagi, current_hari, 0, maks, sisa);
         }
         // Assign shift siang
         if (counter_siang>0) {
-            assignDokter(&counter_siang, &shiftSiang, siang, current_hari, 1);
+            int maks = (shiftSiangDef/7)+1;
+            assignDokter(&counter_siang, &shiftSiang, siang, current_hari, 1, maks, sisa);
         }
         // Assign shift malam
         if (counter_malam>0) {
-            assignDokter(&counter_malam, &shiftMalam, malam, current_hari, 2);
+            int maks = (shiftMalamDef/7)+1;
+            assignDokter(&counter_malam, &shiftMalam, malam, current_hari, 2, maks, sisa);
         }
-
+        sisa-=1;
         // Jika sudah seminggu lakukan reset
         if (current_hari->tanggal==7 || current_hari->tanggal==14 || current_hari->tanggal==21 || current_hari->tanggal==28) {
             counter_pagi = counter_pagiDef;
@@ -355,6 +360,7 @@ void buatJadwal() {
             shiftPagi=shiftPagiDef;
             shiftSiang=shiftSiangDef;
             shiftMalam=shiftMalamDef;
+            sisa=7;
         }
         current_hari=current_hari->next;
     }
