@@ -1,0 +1,14 @@
+// jadwal mingguan
+void tampilkanJadwalMingguan(hari *head, int minggu_ke) {
+    printf("\n=== Jadwal Minggu Ke-%d ===\n", minggu_ke);
+    int start_date = (minggu_ke-1)*7 + 1;
+    int end_date = minggu_ke*7;
+    
+    hari *current = head;
+    while(current != NULL && current->tanggal <= end_date) {
+        if(current->tanggal >= start_date) {
+            tampilkanJadwalHarian(current);
+        }
+        current = current->next;
+    }
+}
