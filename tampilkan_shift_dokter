@@ -1,0 +1,15 @@
+// jumlah shift masing-masing dokter 
+void tampilkanJumlahShift(dokter *head_dokter) {
+    printf("\n=== JUMLAH SHIFT PER DOKTER ===\n");
+    printf("%-20s | %-10s | %-10s\n", "Nama Dokter", "Total Shift", "Maks Shift");
+    printf("--------------------------------------------\n");
+    
+    dokter *current = head_dokter;
+    while(current != NULL) {
+        printf("%-20s | %-10d | %-10d\n", 
+               current->nama, 
+               current->totalShift, 
+               current->maxShift);
+        current = current->next;
+    }
+}
