@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include <math.h>
-
 
 typedef struct dokter{
     char nama[50];  // nama dokter
@@ -42,7 +40,6 @@ void bacaFile() { // Fungsi untuk membaca file dan membuat linked list dokter
             head_dokter=new;
         }
     }
-
     fclose(file);
 }
 
@@ -294,7 +291,7 @@ void buatJadwal() {
     hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam); // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
 
     // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift
-    // Jika tidak cukup atau jumlah masksimal shift semua dokter dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
+    // Jika tidak cukup atau jumlah masksimal shift semua dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
     if (shiftPagi<7) {
         while (shiftPagi<7 && (shiftSiang>=13 ||shiftMalam>=13)) {
             distribusiArray (pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, &counter_pagi, &counter_siang, &counter_malam);
@@ -336,16 +333,19 @@ void buatJadwal() {
         // Assign shift pagi
         if (counter_pagi>0) {
             int maks = (shiftPagiDef/7)+1;
+            if (((maks*7)-shiftPagiDef)>=sisa) maks--;
             assignDokter(&counter_pagi, &shiftPagi, pagi, current_hari, 0, maks, sisa);
         }
         // Assign shift siang
         if (counter_siang>0) {
             int maks = (shiftSiangDef/7)+1;
+            if (((shiftSiangDef/7)+1)>=sisa) maks--;
             assignDokter(&counter_siang, &shiftSiang, siang, current_hari, 1, maks, sisa);
         }
         // Assign shift malam
         if (counter_malam>0) {
             int maks = (shiftMalamDef/7)+1;
+            if (((maks*7)-shiftMalamDef)>=sisa) maks--;
             assignDokter(&counter_malam, &shiftMalam, malam, current_hari, 2, maks, sisa);
         }
         sisa-=1;
