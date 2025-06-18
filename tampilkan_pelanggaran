@@ -1,0 +1,5 @@
+// menampilkan pelanggaran
+void tampilkanTotalPelanggaran(int jumlah_pelanggaran) {
+    printf("\n=== TOTAL PELANGGARAN ===\n");
+    printf("Total pelanggaran preferensi: %d\n", jumlah_pelanggaran);
+}
