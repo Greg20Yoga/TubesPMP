@@ -7,7 +7,7 @@ typedef struct dokter{
     char nama[50];  // nama dokter
     int maxShift;   // Maksimal shift per minggu
     int preferensi; // preferensi hari pertama
-    int totalShift; // counter untuk menghitung total shift dalam seminggu
+    int totalShift; // counter untuk menghitung sudah berapa shift dalam seminggu
     struct dokter *next;
 } dokter;
 
@@ -147,7 +147,7 @@ void hitungMaxShift(dokter *pagi[], dokter *siang[], dokter *malam[],
     }
 }
 
-void assignDokter(int *counter, int *totalShift, dokter *shift[], hari *current_hari, int p, int maks, int sisa) {
+void assignDokter(int *counter, int *totalShift, dokter *shift[], hari *current_hari, int p, int maks, int sisa) { // Fungsi untuk mengambil dokter secara dari array preferensi, lalu mengassign ke array shift pada ndoe hari
     int indeksRandom[5];
     randomIndeks(*counter, *totalShift, indeksRandom, maks, sisa);
     for (int i=0;i<5;i++) {
@@ -195,13 +195,10 @@ void buatJadwal() {
     // counter untuk menghitung maksimal shift per minggu dari semua dokter tiap preferensi
     int shiftPagi, shiftSiang, shiftMalam;
 
-    // Baca file dan membuat linked list dokter
     bacaFile();
-
-    // Buat linked list hari
     buatHari();
 
-    // Proses memasukkan data dokter ke array sesuai preferensi shift
+    // Proses mengelompokkan data dokter ke array sesuai preferensi shift
     //========================================================================================================================================================
     // Untuk dokter yang memiliki preferensi satu hari (0,1,2) dahulu, agar nanti bisa dilakukan pemerataan antar shift dengan preferensi yang lebih fleksibel
     dokter *current_dokter = head_dokter;
@@ -271,7 +268,7 @@ void buatJadwal() {
     current_dokter=head_dokter;
     while (current_dokter!=NULL) {
         hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam);
-        if (current_dokter->preferensi>5 || current_dokter->preferensi <0) {
+        if (current_dokter->preferensi>5 || current_dokter->preferensi <0) { // diluar antara 0 sampai 5 dianggap tidak memiliki preferensi
             if ((shiftPagi<shiftSiang || shiftPagi==shiftSiang) && (shiftPagi<shiftMalam || shiftPagi==shiftMalam)) {
                 pagi[counter_pagi]=current_dokter;
                 counter_pagi++;
@@ -290,8 +287,8 @@ void buatJadwal() {
     
     hitungMaxShift(pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, counter_pagi, counter_siang, counter_malam); // Hitung jumlah maksmial shift per minggu semua dokter untuk masing masing array preferensi shift
 
-    // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift
-    // Jika tidak cukup atau jumlah masksimal shift semua dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi)
+    // Melakukan pengecekan kembali jumlah maksimal shift per minggu semua dokter untuk masing masing array preferensi shift, apakah cukup untuk setidaknya satu dokter per shift dalam seminggu
+    // Jika tidak cukup atau jumlah masksimal shift semua dokter untuk suatu preferensi <7 maka terpaksa memindahkan dokter dari yang bukan preferensinya (melanggar preferensi) jika memungkinkan
     if (shiftPagi<7) {
         while (shiftPagi<7 && (shiftSiang>=13 ||shiftMalam>=13)) {
             distribusiArray (pagi, siang, malam, &shiftPagi, &shiftSiang, &shiftMalam, &counter_pagi, &counter_siang, &counter_malam);
@@ -309,7 +306,7 @@ void buatJadwal() {
     }
     //==============================================================================================================================================
     
-    // Default Value agar bisa assign kembali ke temporary saat reset per minggu
+    // Default Value agar bisa assign kembali saat reset per minggu ke variabel sementara yang nilainya berubah-ubah selama proses membuat jadwal
     //==========================================================================
     dokter *pagiDef[100];
     dokter *siangDef[100];
@@ -332,7 +329,7 @@ void buatJadwal() {
     while(current_hari!=NULL) {
         // Assign shift pagi
         if (counter_pagi>0) {
-            int maks = (shiftPagiDef/7)+1;
+            int maks = (shiftPagiDef/7)+1; // Maksimal jumlah dokter per shift agar merata setiap hari selama seminggu jika tidak bisa 5 dokter per shift
             if (((maks*7)-shiftPagiDef)>=sisa) maks--;
             assignDokter(&counter_pagi, &shiftPagi, pagi, current_hari, 0, maks, sisa);
         }
