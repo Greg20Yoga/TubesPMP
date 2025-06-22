@@ -341,7 +341,7 @@ int main() {
     inisialisasiJadwal(7);
     buatJadwal();
     if (checkEmpty()) {
-        randomtoEmpty(pelanggaran_preferensi);
+        randomtoEmpty(&pelanggaran_preferensi);
     }  
     printJadwal();
     freeDokter();
