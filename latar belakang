@@ -1,0 +1,21 @@
+Dalam ritme kerja rumah sakit, penyusunan jadwal jaga dokter adalah hal yang penting dalam memberikan pelayanan kesehatan yang utama bagi pasien. Jadwal jaga dokter 
+yang ideal memastikan semua shift terisi oleh dokter yang kompeten dan juga tetap mempertimbangkan kebutuhan dan kenyamanan para dokter. Dalam praktiknya, proses 
+penjadwalan jaga dokter secara manual rentan terjadi kesalahan seperti penumpukan shift, kekosongan jadwal, serta preferensi dokter yang tidak terpenuhi. Tantangan 
+utama dalam penjadwalan ini adalah banyaknya kombinasi kemungkinan penempatan dokter dalam shift berbeda. Setiap dokter memiliki batas maksimum jumlah shift dan 
+preferensi terhadap waktu shift seperti hanya ingin bertugas di pagi atau sore hari. Tanpa alat bantu yang efektif, sulit bagi manajemen rumah sakit untuk menyusun 
+jadwal yang optimal sesusai preferensi setiap dokter.
+
+Dari sisi algoritma dan pemrograman, masalah penjadwalan dokter ini dapat dikategorikan sebagai constraint satisfication problem, yaitu masalah yang solusinya harus 
+memenuhi sejumlah batasan. Dalam masalah ini, batasan yang ada mencakup jumlah maksimal shift setiap dokter, pembagian sesi shift pagi-siang-sore, dan distribusi 
+tugas yang merata. Permasalahan ini cocok diselesaikan menggunakan pendekatan algoritma ----. Penggunaan algoritma yang tepat dapat meningkatkan efisiensi porses 
+penjadwalan.
+
+Dari sudut pandang teknologi, perkembangan perangkat lunak memungkinkan pengembangan dalam otomatisasi penjadwalan berdasarkan preferensi. Dengan menggunakan bahasa 
+pemrograman seperti C dan struktur data yang tepat, program dapat Menyusun jadwal yang efisien dibanding dengan proses penjadwalan yang dapat memakan waktu dan rentan 
+terjadi kesalahan. Secara sosial, penjadwalan dokter yang adil berpengaruh pada tingkat kepuasan kerja dokter. Jika jadwal yang diberikan tidak sesuai dengan 
+preferensi, dapat memicu kelelahan dan penurunan kualitas pelayanan yang diberikan kepada pasien. Dengan sistem otomatis yang mempertimbangkan preferensi masing-
+masing dokter secara objektif, potensi masalah tersebut dapat diminimalisir.
+
+Sebagai Solusi dari permasalahan tersebut, dikembangkan sebuah program yang dapat secara otomatis menyusun jadwal jaga dokter berdasarkan preferensi masing-masing 
+dokter. Program menggunakan pendekatan algoritma yang dapat menyesuaikan preferensi dan batasan yang ada kemudian menghasilkan output jadwal yang optimal dan adil. 
+Dengan adanya program ini, rumah sakit dapat mengurangi kesalahan dalam penjadwalan jaga dokter sehingga efisiensi operasional meningkat. 
