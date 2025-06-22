@@ -4,6 +4,8 @@
 #include <time.h>
 #include "Dokter.h"
 
+dokter *head_dokter = NULL;
+
 dokter* createDokter(int id, const char* nama, int maxshift, int prefShift) {
     dokter *newDokter = malloc(sizeof(dokter));
     if (newDokter == NULL) {

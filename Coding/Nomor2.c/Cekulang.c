@@ -3,7 +3,9 @@
 #include <string.h>
 #include <time.h>
 #include "Cekulang.h"
-int checkEmpty(void) {
+#include "Greedytubes.h"
+
+int checkEmpty() {
     for (jadwal* currentHari = head_jadwal; currentHari != NULL; currentHari = currentHari->next) {
         dokter** shifts[] = { currentHari->pagi, currentHari->siang, currentHari->malam };
         for (int i = 0; i < 3; i++) {
@@ -39,7 +41,15 @@ int cekPelanggaran(dokter* dokter, int tipeShift) {
     return 1;
 }
 
-
+int hitungDokterTersedia() {
+    int count = 0;
+    for (dokter* d = head_dokter; d != NULL; d = d->next) {
+        if (d->totalShift < d->maxShift) {
+            count++;
+        }
+    }
+    return count;
+}
 
 void randomtoEmpty(int* pelanggaran_preferensi) {
     if (!head_dokter) return;

@@ -16,7 +16,7 @@ typedef struct dokter {
 } dokter;
 /* Membuat Struktur Data Linked List Dokter */
 
-dokter *head_dokter = NULL;
+extern dokter *head_dokter;
 /* Menginisialisasi head awal Dokter */
 
 dokter* createDokter(int id, const char* nama, int maxshift, int prefShift);

@@ -4,6 +4,8 @@
 #include <time.h>
 #include "Jadwal.h"
 
+jadwal *head_jadwal = NULL;
+
 jadwal* createJadwal(int tanggal) {
     jadwal *newHari = calloc(1, sizeof(jadwal));
     if (newHari == NULL) {

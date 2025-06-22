@@ -10,8 +10,6 @@
 #include "Dokter.h"
 #include "Jadwal.h"
 
-int pelanggaran_preferensi = 0;
-/* Menginisialisasi variabel tipe integer pelanggaran preferensi */
 
 void openfileDokter(const char* filename);
 /* I.S. Nama file csv data dokter 

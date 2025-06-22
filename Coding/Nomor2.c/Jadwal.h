@@ -16,7 +16,7 @@ typedef struct jadwal {
 } jadwal;
 /* Membuat Struktur Data Linked List Jadwal */
 
-jadwal *head_jadwal = NULL;
+extern jadwal *head_jadwal;
 /* Menginisialisasi head awal jadwal */
 
 jadwal* createJadwal(int tanggal);
