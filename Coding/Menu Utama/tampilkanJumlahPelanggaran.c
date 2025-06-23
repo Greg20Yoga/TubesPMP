@@ -5,5 +5,5 @@
 #include "tampilkanJumlahPelanggaran.h"
 
 void tampilkanJumlahPelanggaran() {
-    printf("\n🚨 Jumlah Pelanggaran: %d\n", jumlahPelanggaran);
+    printf("\n🚨 Jumlah Pelanggaran: %d\n", pelanggaran_preferensi);
 }
