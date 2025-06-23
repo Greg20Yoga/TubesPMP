@@ -1,3 +1,5 @@
+#include "tampilkanJadwalHarian.h"
+
 void tampilkanJadwalHarian(hari *day) {
 
     printf("\n╔══════════════════════════════════════════╗");
