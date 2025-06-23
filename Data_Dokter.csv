@@ -1,4 +1,4 @@
-ID;Nama;MaksShift;PreferensiShift
+No;Nama;MaksimalShift;PreferensiShift
 1;Budi;2;2
 2;Jaka;4;1
 3;Aji;3;3
@@ -9,3 +9,4 @@ ID;Nama;MaksShift;PreferensiShift
 8;Asep;4;2
 9;Didit;5;3
 10;Bahlil;3;2
+11;Agus Yodi;3;4
