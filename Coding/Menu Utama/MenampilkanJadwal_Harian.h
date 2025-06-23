@@ -4,7 +4,6 @@
 #include "dokter.h"  
 #include "jadwal.h"  
 
-// Deklarasi fungsi untuk menampilkan jadwal harian
 void tampilkanJadwal_Harian(hari* head);
 
 #endif
