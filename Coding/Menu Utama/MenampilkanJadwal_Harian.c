@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "MenampilkanJadwal_Harian.h"
 // jadwal harian
 void tampilkanJadwal_Harian(hari* head) {
     int nomorHari;
