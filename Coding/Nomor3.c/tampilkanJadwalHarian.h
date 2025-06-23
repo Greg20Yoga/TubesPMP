@@ -1,5 +1,5 @@
-#ifndef JADWAL_H
-#define JADWAL_H
+#ifndef TAMPILKANJADWALHARIAN_H
+#define TAMPILKANJADWALHARIAN_H
 
 #include <stdio.h>  
 
