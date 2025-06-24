@@ -8,7 +8,7 @@
 #include "Dokter.h"
 #include "Jadwal.h"
 
-int main() {
+int main2() {
     int pelanggaran_preferensi = 0;
     srand(time(NULL));
     const char* csv_filename = "data_dokter.csv";

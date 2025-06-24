@@ -12,7 +12,7 @@ int checkEmpty(void);
    Memeriksa keberadaan slot kosong*/
 
 int cekPelanggaran(dokter* dokter, int tipeShift);
-/* I.S. Dokter dan tipe shift dokter
+/* I.S. Dokter dan tipe shift okter
    F.S. Mengembalikan 1 jika menemukan pelanggaran preferensi,
    Memeriksa apakah penempatan dokter merupakan pelanggaran preferensi dokter tersebut */
 
