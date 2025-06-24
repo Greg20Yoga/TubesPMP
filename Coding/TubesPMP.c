@@ -381,7 +381,7 @@ void freeJadwal() {
     }
 }
 
-int main() {
+void membuat_jadwal() {
     int pelanggaran_preferensi = 0;
     srand(time(NULL));
     const char* csv_filename = "data_dokter.csv";
@@ -398,5 +398,4 @@ int main() {
     simpanJadwalKeCSV("JadwalDokter.csv");
     freeDokter();
     freeJadwal();
-    return 0;
 }
