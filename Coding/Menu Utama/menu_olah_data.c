@@ -37,6 +37,4 @@ void menu_olah_data() {
                 printf("Pilihan tidak valid. Masukkan angka 1-4.\n");
         }
     }
-    
-    return 0;
 }
