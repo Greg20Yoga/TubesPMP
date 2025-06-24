@@ -1,10 +1,7 @@
+/* File : Dokter.h */
+
 #ifndef DOKTER_H
 #define DOKTER_H
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 typedef struct dokter {
     int id;

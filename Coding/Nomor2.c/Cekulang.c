@@ -101,3 +101,36 @@ void randomtoEmpty(int* pelanggaran_preferensi) {
         }
     }
 }
+
+void simpanJadwalKeCSV(const char* namaFile) {
+    FILE *file = fopen(namaFile, "w");
+    if (file == NULL) {
+        perror("Error: Gagal membuat atau membuka file untuk menyimpan jadwal");
+        return;
+    }
+
+    fprintf(file, "Tanggal,Shift,Slot,ID_Dokter,Nama_Dokter\n");
+
+    for (jadwal* day = head_jadwal; day != NULL; day = day->next) {
+        const char* nama_shift[] = {"Pagi", "Siang", "Malam"};
+        dokter** daftar_shift[] = {day->pagi, day->siang, day->malam};
+
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 5; i++) {
+                dokter* d = daftar_shift[j][i];
+                int nomor_slot = i + 1;
+
+                if (d != NULL) {
+                    // Jika slot terisi, tulis semua data
+                    fprintf(file, "%d,%s,%d,%d,%s\n", day->tanggal, nama_shift[j], nomor_slot, d->id, d->nama);
+                } else {
+                    // Jika slot kosong, tulis data hari, shift, dan slot, lalu kosongkan data dokter
+                    fprintf(file, "%d,%s,%d,,\n", day->tanggal, nama_shift[j], nomor_slot);
+                }
+            }
+        }
+    }
+
+    fclose(file);
+    printf("\nJadwal telah berhasil disimpan ke file: %s\n", namaFile);
+}

@@ -1,8 +1,4 @@
 /* File : Cekulang.h */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 #ifndef CEKULANG_H
 #define CEKULANG_H
@@ -25,4 +21,9 @@ int hitungDokterTersedia();
 
 void randomtoEmpty(int* pelanggaran_preferensi);
 /* Mengisi semua slot kosong dengan memilih secara acak dari daftar dokter dengan jumlah shift yang belum memenuhi maxshift */
+
+void simpanJadwalKeCSV(const char* namaFile);
+/* I.S. Nama file untuk menyimpan jadwal
+   F.S. Jadwal disimpan dalam format CSV
+   Menyimpan jadwal ke dalam file CSV dengan format yang telah ditentukan */
 #endif

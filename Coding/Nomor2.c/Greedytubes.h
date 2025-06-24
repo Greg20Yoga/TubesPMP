@@ -1,8 +1,4 @@
 /* File : Greedytubes.h */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 #ifndef GREEDYTUBES_H
 #define GREEDYTUBES_H
