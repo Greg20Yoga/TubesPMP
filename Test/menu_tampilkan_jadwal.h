@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include Dokter.h
-#include Jadwal.h
+#include "Dokter.h"
+#include "Jadwal.h"
 
 void menu_tampilkan_jadwal();
 
